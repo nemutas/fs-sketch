@@ -1,0 +1,16 @@
+---
+import { type HTMLAttributes } from 'astro/types'
+import Layout from './Layout.astro'
+
+interface Props extends HTMLAttributes<'canvas'> {
+  title?: string
+}
+
+const { title, ...attrs } = Astro.props
+---
+
+<Layout title={title}>
+  <canvas {...attrs}></canvas>
+</Layout>
+
+<script src="../scripts/entry"></script>

@@ -1,0 +1,33 @@
+@use './mixins/media.scss' as *;
+
+* {
+  --columns: 7;
+  @include sp {
+    --columns: 3;
+  }
+}
+
+html {
+  font-size: calc(1000vw / 1800);
+  @include sp {
+    font-size: calc(1000vw / 900);
+  }
+  background: #0e0e0e;
+  color: #fff;
+  font-family: Orbitron;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100lvh;
+}

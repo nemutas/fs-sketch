@@ -1,0 +1,110 @@
+---
+import PageLink from '../components/PageLink.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="FS Sketch">
+  <main>
+    <div class="border">FS Sketch</div>
+    <div class="border">2024</div>
+    <>
+      <PageLink y="2024" md="0425" />
+      <PageLink y="2024" md="0422" />
+      <PageLink y="2024" md="0419" />
+      <PageLink y="2024" md="0418" />
+      <PageLink y="2024" md="0401" />
+      <PageLink y="2024" md="0312" />
+      <PageLink y="2024" md="0311" />
+      <PageLink y="2024" md="0308" />
+      <PageLink y="2024" md="0306_2" />
+      <PageLink y="2024" md="0306" />
+      <PageLink y="2024" md="0304" />
+      <PageLink y="2024" md="0303" />
+      <PageLink y="2024" md="0225" />
+      <PageLink y="2024" md="0221" />
+      <PageLink y="2024" md="0219" />
+      <PageLink y="2024" md="0218" />
+      <PageLink y="2024" md="0217" />
+      <PageLink y="2024" md="0214" />
+      <PageLink y="2024" md="0213_2" />
+      <PageLink y="2024" md="0213" />
+      <PageLink y="2024" md="0211" />
+      <PageLink y="2024" md="0210" />
+      <PageLink y="2024" md="0208" />
+      <PageLink y="2024" md="0207_2" />
+      <PageLink y="2024" md="0207" />
+      <PageLink y="2024" md="0206_2" />
+      <PageLink y="2024" md="0206" />
+      <PageLink y="2024" md="0205" />
+      <PageLink y="2024" md="0204_2" />
+      <PageLink y="2024" md="0204" />
+      <PageLink y="2024" md="0203_2" />
+      <PageLink y="2024" md="0203" />
+      <PageLink y="2024" md="0202" />
+    </>
+  </main>
+</Layout>
+
+<style lang="scss" is:global>
+  @use '../styles/mixins/media.scss' as *;
+
+  main {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+
+    & > * {
+      position: relative;
+      z-index: 0;
+      aspect-ratio: 1;
+      font-size: min(2.4rem, 14px);
+      display: grid;
+      place-items: center;
+      min-width: calc(100vw / var(--columns));
+      min-height: calc(100vw / var(--columns));
+      overflow: hidden;
+      padding: 3rem;
+      word-break: break-all;
+
+      &.border {
+        border: 1px solid #fff1;
+      }
+
+      &.empty {
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          width: calc(100% * sqrt(2));
+          height: 1px;
+          background: #fff2;
+          rotate: 45deg;
+        }
+        &::after {
+          rotate: -45deg;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/scroller'
+  import { env } from '../scripts/env'
+
+  env.mobileMql.addEventListener('change', () => {
+    location.reload()
+  })
+
+  const column = env.isPc ? 7 : 3
+  const container = document.querySelector<HTMLElement>('main')!
+  const tiles = document.querySelectorAll<HTMLElement>('main > *')
+  let emptyTileCount = column - (tiles.length % column)
+  if (emptyTileCount === column) emptyTileCount = 0
+
+  for (let i = 0; i < emptyTileCount; i++) {
+    const emptyTile = document.createElement('div')
+    emptyTile.classList.add('border', 'empty')
+    container.appendChild(emptyTile)
+  }
+</script>
