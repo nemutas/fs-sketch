@@ -32,7 +32,7 @@ async function entry() {
 }
 
 function logShaderLink(y: string, md: string) {
-  console.log(`https://github.com/nemutas/fs-sketch/blob/main/src/${y}/${md}/sketch.fs`)
+  console.log(`https://github.com/nemutas/fs-sketch/blob/main/src/shaders/${y}/${md}.fs`)
 }
 
 entry()
