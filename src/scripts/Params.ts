@@ -34,11 +34,11 @@ class Params {
 
   get dpr() {
     const d = Number(this.data_dpr ?? window.devicePixelRatio)
-    return Math.min(d, 2)
+    return Math.round(Math.min(d, 2))
   }
 
   get enableStats() {
-    return Boolean(this.data_stats)
+    return Boolean(this.data_stats == '' || this.data_stats == 'true')
   }
 
   get filterType() {

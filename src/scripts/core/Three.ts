@@ -1,16 +1,16 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
-import { params } from '../Params'
 
 export abstract class Three {
   readonly renderer: THREE.WebGLRenderer
-  readonly camera: THREE.PerspectiveCamera
+  protected camera: THREE.PerspectiveCamera
   readonly scene: THREE.Scene
-  private clock: THREE.Clock
+  protected readonly clock: THREE.Clock
   private _stats?: Stats
   private _controls?: OrbitControls
-  readonly time = { delta: 0, elapsed: 0 }
+  protected focusWindow = true
+  private abortController?: AbortController
 
   constructor(canvas: HTMLCanvasElement) {
     this.renderer = this.createRenderer(canvas)
@@ -18,18 +18,19 @@ export abstract class Three {
     this.scene = this.createScene()
     this.clock = new THREE.Clock()
 
-    window.addEventListener('resize', this._resize.bind(this))
+    this.addEvents()
   }
 
   private createRenderer(canvas: HTMLCanvasElement) {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setPixelRatio(params.dpr)
+    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.shadowMap.enabled = true
     return renderer
   }
 
   private createCamera() {
-    const camera = new THREE.PerspectiveCamera(50, this.size.aspect, 0.01, 100)
+    const camera = new THREE.PerspectiveCamera(40, this.size.aspect, 1, 20)
     camera.position.z = 5
     return camera
   }
@@ -46,22 +47,33 @@ export abstract class Three {
     }
     return this._stats
   }
+  private addEvents() {
+    this.abortController = new AbortController()
 
-  private _resize() {
-    const { innerWidth: width, innerHeight: height } = window
-    this.renderer.setSize(width, height)
-    // this.camera.aspect = width / height
-    // this.camera.updateProjectionMatrix()
+    window.addEventListener(
+      'resize',
+      () => {
+        const { innerWidth: width, innerHeight: height } = window
+        this.renderer.setSize(width, height)
+        this.camera.aspect = width / height
+        this.camera.updateProjectionMatrix()
+      },
+      { signal: this.abortController.signal },
+    )
+
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+        if (document.visibilityState === 'visible') this.clock.start()
+        else if (document.visibilityState === 'hidden') this.clock.stop()
+      },
+      { signal: this.abortController.signal },
+    )
   }
 
   get size() {
     const { width, height } = this.renderer.domElement
     return { width, height, aspect: width / height }
-  }
-
-  protected updateTime() {
-    this.time.delta = this.clock.getDelta()
-    this.time.elapsed = this.clock.getElapsedTime()
   }
 
   protected get controls() {
@@ -85,5 +97,6 @@ export abstract class Three {
   dispose() {
     this.renderer.setAnimationLoop(null)
     this.renderer.dispose()
+    this.abortController?.abort()
   }
 }

@@ -81,13 +81,13 @@ export class Canvas extends Three {
 
   private anime() {
     if (params.enableStats) this.stats.update()
-    this.updateTime()
+    const dt = this.clock.getDelta()
 
-    this.mainScene.render(this.time.delta)
+    this.mainScene.render(dt)
 
     this.uniforms.source.value = this.mainScene.texture
     this.uniforms.mouse.value = mouse2d.position
-    this.uniforms.time.value += this.time.delta
+    this.uniforms.time.value += dt
     this.uniforms.frame.value += 1
     this.render()
   }
