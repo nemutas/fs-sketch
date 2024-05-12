@@ -3,6 +3,7 @@ import { mouse2d } from './Mouse2D'
 import { BackBuffer } from './core/BackBuffer'
 import { RawShaderMaterial } from './core/ExtendedMaterials'
 import vertexShader from './shader/quad.vs'
+import { params } from './Params'
 
 export class MainScene extends BackBuffer {
   constructor(renderer: THREE.WebGLRenderer, fragmentShader: string) {
@@ -22,7 +23,16 @@ export class MainScene extends BackBuffer {
       glslVersion: '300 es',
     })
 
-    super(renderer, material)
+    super(renderer, material, {
+      renderTargetOptions: {
+        type: THREE.UnsignedByteType,
+        generateMipmaps: params.filterType === THREE.LinearFilter,
+        minFilter: params.filterType,
+        magFilter: params.filterType,
+        wrapS: THREE.RepeatWrapping,
+        wrapT: THREE.RepeatWrapping,
+      },
+    })
   }
 
   resize() {

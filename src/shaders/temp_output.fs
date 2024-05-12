@@ -11,7 +11,7 @@ in vec2 vUv;
 out vec4 outColor;
 
 void main() {
-  vec2 uv = vUv, asp = resolution / min(resolution.x, resolution.y);
+  vec2 uv = vUv, asp = resolution / min(resolution.x, resolution.y), suv = (uv * 2.0 - 1.0) * asp;
 
   float n = 20.0;
   uv = floor(uv * asp * n) / asp / n;

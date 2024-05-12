@@ -16,7 +16,7 @@ out vec4 outColor;
 const float SEED = SEED_VALUE;
 
 void main() {
-  vec2 uv = vUv, asp = resolution / min(resolution.x, resolution.y);
+  vec2 uv = vUv, asp = resolution / min(resolution.x, resolution.y), suv = (uv * 2.0 - 1.0) * asp;
   outColor = vec4(uv, 0.0, 1.0);
 }
 
