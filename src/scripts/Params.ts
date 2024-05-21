@@ -6,6 +6,7 @@ class Params {
   private data_stats?: string
   private data_cubemap?: string
   private data_filter?: string
+  private data_single_text?: string
 
   constructor() {
     const canvas = document.querySelector<HTMLCanvasElement>('canvas')!
@@ -14,6 +15,7 @@ class Params {
     this.data_stats = canvas.dataset.stats
     this.data_cubemap = canvas.dataset.cubemap
     this.data_filter = canvas.dataset.filter
+    this.data_single_text = canvas.dataset.singleText
   }
 
   get texturePath() {
@@ -43,6 +45,17 @@ class Params {
 
   get filterType() {
     return this.data_filter === 'linear' ? THREE.LinearFilter : THREE.NearestFilter
+  }
+
+  get singleText() {
+    if (this.data_single_text) {
+      const st = this.data_single_text.split('_')
+      const text = st[0][0]
+      const dpr = Number(st.at(-1)) ?? this.data_dpr
+      return { text, dpr }
+    } else {
+      return null
+    }
   }
 }
 

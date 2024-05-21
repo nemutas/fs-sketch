@@ -17,6 +17,7 @@ export class MainScene extends BackBuffer {
         time: { value: 0 },
         prevTime: { value: 0 },
         frame: { value: 0 },
+        singleText: { value: null },
       },
       vertexShader,
       fragmentShader,
@@ -33,6 +34,30 @@ export class MainScene extends BackBuffer {
         wrapT: THREE.RepeatWrapping,
       },
     })
+
+    if (params.singleText) {
+      this.uniforms.singleText.value = this.createSingleTextTexture(params.singleText.text, params.singleText.dpr)
+    }
+  }
+
+  private createSingleTextTexture(text: string, dpr: number) {
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.min(window.innerWidth * dpr, window.innerHeight * dpr)
+    canvas.height = canvas.width
+    const ctx = canvas.getContext('2d')!
+
+    const scale = 0.8
+    ctx.font = `400 ${canvas.height * scale}px serif`
+    ctx.fillStyle = '#fff'
+    const measure = ctx.measureText(text)
+    const x = (canvas.width - measure.width) / 2
+    const y = canvas.height - measure.actualBoundingBoxDescent - (measure.fontBoundingBoxDescent / 2) * scale
+    ctx.fillText(text, x, y)
+
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.generateMipmaps = false
+
+    return texture
   }
 
   resize() {
