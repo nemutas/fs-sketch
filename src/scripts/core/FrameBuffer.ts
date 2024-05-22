@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { params } from '../Params'
+import { params } from '../common/Params'
 
 export type Options = {
   dpr?: number

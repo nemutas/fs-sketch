@@ -1,5 +1,5 @@
 import Lenis from 'lenis'
-import { env } from './env'
+import { env } from './Env'
 import { OverlayScrollbars } from 'overlayscrollbars'
 
 class Scroller {

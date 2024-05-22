@@ -1,9 +1,9 @@
 import * as THREE from 'three'
-import { mouse2d } from './Mouse2D'
+import { mouse2d } from './common/Mouse2D'
 import { BackBuffer } from './core/BackBuffer'
 import { RawShaderMaterial } from './core/ExtendedMaterials'
 import vertexShader from './shader/quad.vs'
-import { params } from './Params'
+import { params } from './common/Params'
 
 export class MainScene extends BackBuffer {
   constructor(renderer: THREE.WebGLRenderer, fragmentShader: string) {

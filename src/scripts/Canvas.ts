@@ -4,8 +4,8 @@ import vertexShader from './shader/quad.vs'
 import fragmentShader from './shader/output.fs'
 import { RawShaderMaterial } from './core/ExtendedMaterials'
 import { MainScene } from './MainScene'
-import { params } from './Params'
-import { mouse2d } from './Mouse2D'
+import { params } from './common/Params'
+import { mouse2d } from './common/Mouse2D'
 
 export class Canvas extends Three {
   private mainScene: MainScene

@@ -9,13 +9,13 @@ class Params {
   private data_single_text?: string
 
   constructor() {
-    const canvas = document.querySelector<HTMLCanvasElement>('canvas')!
-    this.data_texture = canvas.dataset.texture
-    this.data_dpr = canvas.dataset.dpr
-    this.data_stats = canvas.dataset.stats
-    this.data_cubemap = canvas.dataset.cubemap
-    this.data_filter = canvas.dataset.filter
-    this.data_single_text = canvas.dataset.singleText
+    const canvas = document.querySelector<HTMLCanvasElement>('canvas')
+    this.data_texture = canvas?.dataset.texture
+    this.data_dpr = canvas?.dataset.dpr
+    this.data_stats = canvas?.dataset.stats
+    this.data_cubemap = canvas?.dataset.cubemap
+    this.data_filter = canvas?.dataset.filter
+    this.data_single_text = canvas?.dataset.singleText
   }
 
   get texturePath() {
