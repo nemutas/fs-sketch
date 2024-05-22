@@ -45,7 +45,7 @@ void main() {
   vec4 b = texture(backBuffer, uv);
 
   col = vec3(col.b, b.rg);
-  col = mix(b.rgb, col, 0.2);
+  col = mix(b.rgb, col, 0.4);
 
   outColor = vec4(col, 1.0);
 }
