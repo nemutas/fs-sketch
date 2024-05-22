@@ -30,16 +30,16 @@ void main() {
 
   float n = 10.0;
   vec2 fuv = fract(uv * n * asp);
-  vec2 iuv = floor(uv * n * asp) / n / asp;
+  vec2 iuv = floor(uv * n * asp);
 
-  vec3 cellHash = hash(vec3(floor(uv * n * asp), SEED));
+  vec3 h = hash(vec3(iuv, SEED));
 
-  vec2 tuv = iuv + fuv / n / asp;
+  vec2 tuv = (iuv + fuv) / n / asp;
   tuv = (tuv * 2.0 - 1.0) * asp;
   tuv = (tuv - vec2(0.0, 0.3)) * 0.5 + 0.5;
 
-  float delay = cellHash.x * 2.0 - 1.0;
-  tuv.x += sin(time * PI * 0.5 + delay * 0.5 * PI) * 0.05;
+  float delay = h.x * 2.0 - 1.0;
+  tuv.x += sin(time * PI * (0.7 - h.y * 0.2) + delay * 0.5 * PI) * 0.03;
 
   vec3 col = texture(singleText, tuv).rgb;
   vec4 b = texture(backBuffer, uv);

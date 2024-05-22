@@ -40,14 +40,6 @@ export abstract class FrameBuffer {
   }
 
   protected createRenderTarget() {
-    // const rt = new THREE.WebGLRenderTarget(this.size.width, this.size.height, {
-    //   type: this.options?.type ?? THREE.UnsignedByteType,
-    //   generateMipmaps: false,
-    //   minFilter: params.filterType,
-    //   magFilter: params.filterType,
-    //   wrapS: THREE.RepeatWrapping,
-    //   wrapT: THREE.RepeatWrapping,
-    // })
     return new THREE.WebGLRenderTarget(this.size.width, this.size.height, this.options?.renderTargetOptions)
   }
 

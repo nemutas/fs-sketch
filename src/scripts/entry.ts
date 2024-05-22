@@ -27,11 +27,10 @@ async function entry() {
   const shader = await loadShader(y, md)
   if (!shader.fs) return
 
+  // create canvas
   new Canvas(document.querySelector<HTMLCanvasElement>('canvas')!, shader.fs, shader.fs_output)
-  logShaderLink(y, md)
-}
 
-function logShaderLink(y: string, md: string) {
+  // sorce code link
   console.log(`https://github.com/nemutas/fs-sketch/blob/main/src/shaders/${y}/${md}.fs`)
 }
 
