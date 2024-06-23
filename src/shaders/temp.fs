@@ -9,6 +9,7 @@ uniform float prevTime;
 uniform int frame;
 // uniform sampler2D textureUnit;
 // uniform samplerCube cubeTextureUnit;
+// uniform sampler2D singleText;
 
 in vec2 vUv;
 out vec4 outColor;

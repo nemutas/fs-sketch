@@ -12,7 +12,7 @@ export class MainScene extends BackBuffer {
     const material = new RawShaderMaterial({
       uniforms: {
         backBuffer: { value: null },
-        resolution: { value: [renderer.domElement.width, renderer.domElement.height] },
+        resolution: { value: [renderer.domElement.width * params.dpr, renderer.domElement.height * params.dpr] },
         mouse: { value: mouse2d.position },
         time: { value: 0 },
         prevTime: { value: 0 },
